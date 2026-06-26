@@ -32,6 +32,10 @@ export CCACHE_DIR="${HOME}/.ccache"
 export CCACHE_SLOPPINESS="file_macro,time_macros,include_file_mtime,include_file_ctime"
 ccache -M 20G >/dev/null 2>&1
 
+# Compilers (export as env vars, not make args — avoids shell escaping issues)
+export CC="ccache ${CLANG}"
+export HOSTCC="ccache gcc"
+
 # Explicit tool overrides
 export AS="${TOOLCHAIN_WRAPPER}/aarch64-linux-gnu-as"
 export LD=ld.lld
@@ -53,8 +57,6 @@ mkdir -p "${SCRIPT_DIR}/out"
 # ── Common make args ─────────────────────────────────────────
 MAKE_ARGS="ARCH=arm64"
 MAKE_ARGS+=" CROSS_COMPILE=${CROSS_COMPILE}"
-MAKE_ARGS+=" CC=ccache\\ ${CLANG}"
-MAKE_ARGS+=" HOSTCC=ccache\\ gcc"
 MAKE_ARGS+=" AS=${AS}"
 MAKE_ARGS+=" LD=ld.lld"
 MAKE_ARGS+=" AR=llvm-ar"

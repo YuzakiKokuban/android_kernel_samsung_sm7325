@@ -27,13 +27,11 @@ CROSS_COMPILE_PREFIX="aarch64-linux-gnu-"
 # PATH: toolchain wrapper FIRST so clang finds cross-as before system /usr/bin/as
 export PATH="${TOOLCHAIN_WRAPPER}:${CLANG_BIN}:${BUILD_TOOLS_BIN}:${BUILD_TOOLS_PATH}:${KERNEL_BUILD_TOOLS}:${PATH}"
 
-# ── ccache ───────────────────────────────────────────────────
-export CCACHE_DIR="${HOME}/.ccache"
-export CCACHE_SLOPPINESS="file_macro,time_macros,include_file_mtime,include_file_ctime"
-ccache -M 20G >/dev/null 2>&1
-
 # Compiler (export as env var, not make arg — avoids shell escaping issues)
-export CC="ccache ${CLANG}"
+export CC="${CLANG}"
+
+# Tell kernel Makefile to use clang for host tools too (avoids gcc)
+export LLVM=1
 
 # Explicit tool overrides
 export AS="${TOOLCHAIN_WRAPPER}/aarch64-linux-gnu-as"
@@ -72,7 +70,7 @@ mkdir -p "${SCRIPT_DIR}/out"
 JOBS=$(nproc)
 echo "========================================="
 echo " Building SM7325 kernel"
-echo " CC:       ccache ${CLANG}"
+echo " CC:       ${CLANG}"
 echo " AS:       ${AS}"
 echo " CROSS:    ${CROSS_COMPILE}"
 echo " JOBS:     ${JOBS}"

@@ -49,6 +49,8 @@ export M4="${BUILD_TOOLS_BIN}/m4"
 KERNEL_MAKE_ENV="DTC_EXT=${SCRIPT_DIR}/tools/dtc CONFIG_BUILD_ARM64_DT_OVERLAY=y"
 DEFCONFIG=vendor/gts7fewifi_eur_open_defconfig
 
+# Clean previous build
+rm -rf "${SCRIPT_DIR}/out"
 mkdir -p "${SCRIPT_DIR}/out"
 
 # ── Common make args ─────────────────────────────────────────
@@ -63,8 +65,6 @@ MAKE_ARGS+=" OBJDUMP=llvm-objdump"
 MAKE_ARGS+=" STRIP=llvm-strip"
 MAKE_ARGS+=" CLANG_TRIPLE=aarch64-linux-gnu-"
 MAKE_ARGS+=" CONFIG_SECTION_MISMATCH_WARN_ONLY=y"
-
-mkdir -p "${SCRIPT_DIR}/out"
 
 # ── Build ───────────────────────────────────────────────────
 JOBS=$(nproc)

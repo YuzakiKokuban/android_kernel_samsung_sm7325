@@ -1505,9 +1505,11 @@ static void retract_page_tables(struct address_space *mapping, pgoff_t pgoff)
 		 */
 		if (down_write_trylock(&mm->mmap_sem)) {
 			if (!khugepaged_test_exit(mm)) {
-				vm_write_begin(vma);
-				spinlock_t *ptl = pmd_lock(mm, pmd);
+				spinlock_t *ptl;
 				struct mmu_notifier_range range;
+
+				vm_write_begin(vma);
+				ptl = pmd_lock(mm, pmd);
 
 				mmu_notifier_range_init(&range,
 							MMU_NOTIFY_CLEAR, 0,

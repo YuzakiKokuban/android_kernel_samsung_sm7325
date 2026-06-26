@@ -47,11 +47,9 @@
 #if IS_ENABLED(CONFIG_SND_SOC_CIRRUS_AMP)
 #include <sound/cirrus/big_data.h>
 #include <sound/samsung/bigdata_cirrus_sysfs_cb.h>
-#endif
-#if IS_ENABLED(CONFIG_SND_SOC_TAS256x)
+#elif IS_ENABLED(CONFIG_SND_SOC_TAS256x)
 #include "codecs/tas256x/bigdata_tas_sysfs_cb.h"
-#endif
-#if IS_ENABLED(CONFIG_SND_SOC_TFA9878)
+#elif IS_ENABLED(CONFIG_SND_SOC_TFA9878)
 #include "codecs/tfa9878/bigdata_tfa_sysfs_cb.h"
 #endif
 

@@ -35,10 +35,6 @@
 
 #include "internal.h"
 
-#ifdef CONFIG_KSU_MANUAL_HOOK
-extern int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode, int *flags);
-#endif
-
 #ifdef CONFIG_SECURITY_DEFEX
 #include <linux/defex.h>
 #endif
@@ -450,9 +446,6 @@ out:
 
 SYSCALL_DEFINE3(faccessat, int, dfd, const char __user *, filename, int, mode)
 {
-#ifdef CONFIG_KSU_MANUAL_HOOK
-	ksu_handle_faccessat(&dfd, &filename, &mode, NULL);
-#endif
 	return do_faccessat(dfd, filename, mode);
 }
 

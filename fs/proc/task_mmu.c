@@ -1783,7 +1783,7 @@ static int reclaim_pte_range(pmd_t *pmd, unsigned long addr,
 		is_lru_wb = true;
 #endif
 
-	split_huge_pmd(vma, addr, pmd);
+	split_huge_pmd(vma, pmd, addr);
 	if (pmd_trans_unstable(pmd))
 		return 0;
 cont:

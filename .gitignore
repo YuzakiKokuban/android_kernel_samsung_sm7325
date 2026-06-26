@@ -19,6 +19,7 @@ arch/arm64/boot/Image.lz4
 
 # Toolchain (local prebuilts)
 toolchain/
+!toolchain/bin/
 prebuilts/
 prebuilts-master/
 build/build-tools/

@@ -32,9 +32,8 @@ export CCACHE_DIR="${HOME}/.ccache"
 export CCACHE_SLOPPINESS="file_macro,time_macros,include_file_mtime,include_file_ctime"
 ccache -M 20G >/dev/null 2>&1
 
-# Compilers (export as env vars, not make args — avoids shell escaping issues)
+# Compiler (export as env var, not make arg — avoids shell escaping issues)
 export CC="ccache ${CLANG}"
-export HOSTCC="ccache clang"
 
 # Explicit tool overrides
 export AS="${TOOLCHAIN_WRAPPER}/aarch64-linux-gnu-as"
@@ -74,7 +73,6 @@ JOBS=$(nproc)
 echo "========================================="
 echo " Building SM7325 kernel"
 echo " CC:       ccache ${CLANG}"
-echo " HOSTCC:   ccache clang"
 echo " AS:       ${AS}"
 echo " CROSS:    ${CROSS_COMPILE}"
 echo " JOBS:     ${JOBS}"

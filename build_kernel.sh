@@ -27,7 +27,12 @@ CROSS_COMPILE_PREFIX="aarch64-linux-gnu-"
 # PATH: toolchain wrapper FIRST so clang finds cross-as before system /usr/bin/as
 export PATH="${TOOLCHAIN_WRAPPER}:${CLANG_BIN}:${BUILD_TOOLS_BIN}:${BUILD_TOOLS_PATH}:${KERNEL_BUILD_TOOLS}:${PATH}"
 
-# Explicit tool overrides: force clang to use cross assembler, not system as
+# ── ccache ───────────────────────────────────────────────────
+export CCACHE_DIR="${HOME}/.ccache"
+export CCACHE_SLOPPINESS="file_macro,time_macros,include_file_mtime,include_file_ctime"
+ccache -M 20G >/dev/null 2>&1
+
+# Explicit tool overrides
 export AS="${TOOLCHAIN_WRAPPER}/aarch64-linux-gnu-as"
 export LD=ld.lld
 export AR=llvm-ar
@@ -48,7 +53,8 @@ mkdir -p "${SCRIPT_DIR}/out"
 # ── Common make args ─────────────────────────────────────────
 MAKE_ARGS="ARCH=arm64"
 MAKE_ARGS+=" CROSS_COMPILE=${CROSS_COMPILE}"
-MAKE_ARGS+=" CC=${CLANG}"
+MAKE_ARGS+=" CC=ccache\\ ${CLANG}"
+MAKE_ARGS+=" HOSTCC=ccache\\ gcc"
 MAKE_ARGS+=" AS=${AS}"
 MAKE_ARGS+=" LD=ld.lld"
 MAKE_ARGS+=" AR=llvm-ar"
@@ -65,7 +71,8 @@ mkdir -p "${SCRIPT_DIR}/out"
 JOBS=$(nproc)
 echo "========================================="
 echo " Building SM7325 kernel"
-echo " CC:       ${CLANG}"
+echo " CC:       ccache ${CLANG}"
+echo " HOSTCC:   ccache gcc"
 echo " AS:       ${AS}"
 echo " CROSS:    ${CROSS_COMPILE}"
 echo " JOBS:     ${JOBS}"

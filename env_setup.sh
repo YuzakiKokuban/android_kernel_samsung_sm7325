@@ -18,8 +18,15 @@ export PATH="${TOOLCHAIN_WRAPPER}:${CLANG_DIR}/bin:${BUILD_TOOLS_BIN}:${BUILD_TO
 export ARCH=arm64
 export PROJECT_NAME=gts7xllite
 
+# ── ccache ───────────────────────────────────────────────────
+export CCACHE_DIR="${HOME}/.ccache"
+export CCACHE_SLOPPINESS="file_macro,time_macros,include_file_mtime,include_file_ctime"
+export CCACHE_MAXSIZE="20G"
+ccache -M 20G >/dev/null 2>&1
+
 # Use Clang + LLD for everything (no GCC needed)
-export CC=clang
+export CC="ccache clang"
+export HOSTCC="ccache gcc"
 export AS="${TOOLCHAIN_WRAPPER}/aarch64-linux-gnu-as"
 export LD=ld.lld
 export NM=llvm-nm

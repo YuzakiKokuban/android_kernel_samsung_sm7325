@@ -262,7 +262,7 @@ bool is_certificate_relevant_to_task(
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(5, 10, 0) || defined(PROCA_KUNIT_ENABLED))
 	char cmdline[1024 + 1];
 #else
-	char cmdline[max_app_name + 1];
+	char cmdline[1025];
 #endif
 	int cmdline_size;
 

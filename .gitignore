@@ -1,0 +1,52 @@
+# Build output
+out/
+*.o
+*.ko
+*.mod.c
+*.mod
+*.symvers
+*.order
+*.tmp_versions
+.*.cmd
+*.dtb
+*.dtbo
+*.img
+
+# Generated kernel image
+arch/arm64/boot/Image
+arch/arm64/boot/Image.gz
+arch/arm64/boot/Image.lz4
+
+# Toolchain (local prebuilts)
+toolchain/
+prebuilts/
+prebuilts-master/
+build/build-tools/
+
+# Module output
+*.ko
+*.mod
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Kernel compilation
+Module.symvers
+modules.order
+System.map
+vmlinux
+vmlinux.o
+
+# Packaging
+*.zip
+*.tar*
+!toolchain.tar.gz
+

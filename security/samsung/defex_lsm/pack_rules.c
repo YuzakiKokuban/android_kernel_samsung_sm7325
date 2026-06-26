@@ -14,7 +14,7 @@
 #include <sys/stat.h>
 #include "include/defex_rules.h"
 
-#define SAFE_STRCOPY(dst, src) do { strncpy(dst, src, sizeof(dst)); dst[sizeof(dst) - 1] = 0; } while (0)
+#define SAFE_STRCOPY(dst, src) do { strlcpy(dst, src, sizeof(dst)); } while (0)
 
 #ifndef ARRAY_SIZE
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))

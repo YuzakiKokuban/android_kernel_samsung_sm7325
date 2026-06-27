@@ -203,6 +203,7 @@ build.sh
 
 # AnyKernel3 packaging worktree
 /AnyKernel3/
+/build/AnyKernel3/
 
 # Local prebuilt toolchains
 /prebuilts/
